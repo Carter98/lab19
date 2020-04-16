@@ -72,15 +72,24 @@ let acquire_act : unit -> action = failwith "TODO" ;;
 
 (* get_balance id -- Returns the balance for the customer account with
    the given id. *)
-let get_balance : id -> int = failwith "TODO" ;;
+let find_elt (ident : id) : account_spec =
+  try Account_set.find {"test"; ident; 0} !accounts with _ -> Not_found;;
+let get_balance (ident : id) : int =
+  let elt = find_elt ident in
+  elt.balance  ;;
 
 (* get_name id -- Returns the name associated with the customer
    account with the given id. *)
-let get_name : id -> string = failwith "TODO" ;;
+let get_name : id -> string =
+  let elt = find_elt ident in
+  elt.name ;;
 
 (* update_balance id amount -- Modifies the balance of the customer
    account with the given id,setting it to the given amount. *)
-let update_balance : id -> int -> unit = failwith "TODO" ;;
+let update_balance (ident: id) (balance : int) : unit =
+  let elt = find_elt ident in
+  let
+  elt.balance = balance ;;
 
 (*....................................................................
   Presenting information and cash to the customer
