@@ -53,11 +53,11 @@ let initialize (acc_list : account_spec list) : unit =
 (* acquire_id () -- Requests from the ATM customer and returns an id
    (akin to entering one's ATM card), by prompting for an id number
    and reading an id from stdin. *)
-let acquire_id : unit -> id = failwith "TODO" ;;
+let acquire_id () : id = read_int () ;;
 
 (* acquire_amount () -- Requests from the ATM customer and returns an
    amount by prompting for an amount and reading an int from stdin. *)
-let acquire_amount : unit -> int = failwith "TODO" ;;
+let acquire_amount () : int = read_int () ;;
 
 (* acquire_act () -- Requests from the user and returns an action to
    be performed, as a value of type action *)
