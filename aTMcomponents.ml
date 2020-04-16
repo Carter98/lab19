@@ -88,9 +88,12 @@ let update_balance : id -> int -> unit = failwith "TODO" ;;
 
 (* present_message message -- Presents to the customer (on stdout) the
    given message followed by a newline. *)
-let present_message : string -> unit = failwith "TODO" ;;
+let present_message (s: string) : unit = 
+  Format.printf "%s" s ;;
+
 
 (* deliver_cash amount -- Dispenses the given amount of cash to the
    customer (really just prints to stdout a message to that
    effect). *)
-let deliver_cash : int -> unit = failwith "TODO" ;;
+let deliver_cash (i: int) : unit = 
+  Format.printf "Withdrew %d dollars" i;;
