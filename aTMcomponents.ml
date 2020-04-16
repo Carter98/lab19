@@ -127,4 +127,4 @@ let deliver_cash (i: int) : unit =
     else if num - 20 > 0 then
       "[20 @ 20]" ^ bills (num-20)
     else "" in
-  Format.printf "%s and %d leftover" (bills i) ((i mod 50) mod 20);;
+  Printf.printf "%s and %d leftover\n" (bills i) ((i mod 50) mod 20);;
