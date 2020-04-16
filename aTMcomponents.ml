@@ -96,4 +96,13 @@ let present_message (s: string) : unit =
    customer (really just prints to stdout a message to that
    effect). *)
 let deliver_cash (i: int) : unit = 
-  Format.printf "Withdrew %d dollars" i;;
+  let rec bills (num: int) : string =
+    if num - 100 >= 0 then
+      "[100 @ 100]" ^ bills (num-100)
+    else if num >= 50 then
+      "[50 @ 50]" ^ bills (num-50)
+    else if num - 20 > 0 then
+      "[20 @ 20]" ^ bills (num-20)
+    else "" in
+
+  Format.printf "%s and %d leftover" (bills i) ((i mod 50) mod 20);;
