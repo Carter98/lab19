@@ -53,7 +53,8 @@ let initialize (acc_list : account_spec list) : unit =
 (* acquire_id () -- Requests from the ATM customer and returns an id
    (akin to entering one's ATM card), by prompting for an id number
    and reading an id from stdin. *)
-let acquire_id () : id = read_int () ;;
+let acquire_id () : id = Printf.printf "Enter customer id: ";
+                         read_int () ;;
 
 (* acquire_amount () -- Requests from the ATM customer and returns an
    amount by prompting for an amount and reading an int from stdin. *)
@@ -111,7 +112,7 @@ let update_balance (ident: id) (balance : int) : unit =
 (* present_message message -- Presents to the customer (on stdout) the
    given message followed by a newline. *)
 let present_message (s: string) : unit =
-  Format.printf "%s" s ;;
+  Printf.printf "%s\n" s ;;
 
 
 (* deliver_cash amount -- Dispenses the given amount of cash to the
