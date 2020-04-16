@@ -87,9 +87,10 @@ let get_name : id -> string =
 (* update_balance id amount -- Modifies the balance of the customer
    account with the given id,setting it to the given amount. *)
 let update_balance (ident: id) (balance : int) : unit =
-  let elt = find_elt ident in
-  let
-  elt.balance = balance ;;
+  let accs, elt = !accounts, find_elt ident in
+  let new_accs = accs |> Account_set.remove elt
+                      |> Account_set.add {elt.name; ident; balance;} in
+  accouts := new_accs ;;
 
 (*....................................................................
   Presenting information and cash to the customer
@@ -97,12 +98,12 @@ let update_balance (ident: id) (balance : int) : unit =
 
 (* present_message message -- Presents to the customer (on stdout) the
    given message followed by a newline. *)
-let present_message (s: string) : unit = 
+let present_message (s: string) : unit =
   Format.printf "%s" s ;;
 
 
 (* deliver_cash amount -- Dispenses the given amount of cash to the
    customer (really just prints to stdout a message to that
    effect). *)
-let deliver_cash (i: int) : unit = 
+let deliver_cash (i: int) : unit =
   Format.printf "Withdrew %d dollars" i;;
