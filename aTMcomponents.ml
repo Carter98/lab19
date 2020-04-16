@@ -73,7 +73,8 @@ let acquire_act : unit -> action = failwith "TODO" ;;
 (* get_balance id -- Returns the balance for the customer account with
    the given id. *)
 let find_elt (ident : id) : account_spec =
-  try Account_set.find {"test"; ident; 0} !accounts with _ -> Not_found;;
+  try Account_set.find { name = "test"; id = ident; balance = 0; } !accounts
+  with _ -> raise Not_found;;
 
 let get_balance (ident : id) : int =
   let elt = find_elt ident in
