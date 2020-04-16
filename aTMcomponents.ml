@@ -35,7 +35,16 @@ type account_spec = {name : string; id : id; balance : int} ;;
 (* initialize accts -- Establishes a database of accounts, each with a
    name, aribtrary id, and balance. The names and balances are
    initialized as per the `accts` provided. *)
-let initialize : account_spec list -> unit = failwith "TODO" ;;
+
+module Account_set = Set.Make (struct
+                                  type t = account_spec
+                                  let compare acc1 acc2 = compare acc1.id acc2.id
+                               end) ;;
+
+let accounts = ref Account_set.empty ;;
+
+let initialize (acc_list : account_spec list) : unit =
+  accounts := (List.fold_left (fun s elt -> Account_set.add elt s) !accounts acc_list) ;;
 
 (*....................................................................
  Acquiring information from the customer
