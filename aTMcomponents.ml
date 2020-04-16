@@ -57,11 +57,21 @@ let acquire_id () : id = read_int () ;;
 
 (* acquire_amount () -- Requests from the ATM customer and returns an
    amount by prompting for an amount and reading an int from stdin. *)
-let acquire_amount () : int = read_int () ;;
+let acquire_amount () : int = Printf.printf "Enter amount : ";
+                              read_int () ;;
 
 (* acquire_act () -- Requests from the user and returns an action to
    be performed, as a value of type action *)
-let acquire_act : unit -> action = failwith "TODO" ;;
+let rec acquire_act () : action =
+  Printf.printf "Enter action: (B) Balance (-) Withdraw (+) Deposit (=) Done (X) Exit: ";
+  let inp = read_line () in
+  match inp with
+  | "B" -> Balance
+  | "+" -> Deposit (acquire_amount ())
+  | "-" -> Withdraw (acquire_amount ())
+  | "=" -> Next
+  | "X" -> Finished
+  | _ -> acquire_act () ;;
 
 (*....................................................................
   Querying and updating the account database
@@ -82,7 +92,7 @@ let get_balance (ident : id) : int =
 
 (* get_name id -- Returns the name associated with the customer
    account with the given id. *)
-let get_name : id -> string =
+let get_name (ident : id) : string =
   let elt = find_elt ident in
   elt.name ;;
 
@@ -91,8 +101,8 @@ let get_name : id -> string =
 let update_balance (ident: id) (balance : int) : unit =
   let accs, elt = !accounts, find_elt ident in
   let new_accs = accs |> Account_set.remove elt
-                      |> Account_set.add {elt.name; ident; balance;} in
-  accouts := new_accs ;;
+    |> Account_set.add { name = elt.name; id = ident; balance = balance;} in
+  accounts := new_accs ;;
 
 (*....................................................................
   Presenting information and cash to the customer
